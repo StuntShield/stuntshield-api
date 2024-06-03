@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask import request
 
 
 class StuntingController:
@@ -6,7 +7,13 @@ class StuntingController:
     # get all data
     def index():
 
-        return jsonify({"data": "hello", "message": "woooss!"})
+        # get request parameter
+        username = request.args.get('username')
+        password = request.args.get('password')
+
+        return jsonify(
+            {'data_test': {'username': username, 'password': password}}
+        )
 
     # show specific user
     def show():
