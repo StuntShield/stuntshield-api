@@ -2,7 +2,9 @@ How to run:
 
 make sure you're in the `stuntshield-api` directory then run:
 
-`flask --app app run`
+local development:
+
+`flask --app app run --debug`
 
 installing dependencies:
 
