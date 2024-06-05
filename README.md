@@ -1,5 +1,4 @@
 ## How to run:
-
 make sure you're in the `stuntshield-api` directory then run:
 
 local development:
@@ -12,7 +11,8 @@ installing dependencies:
 
 
 ## Tools/IDE/Library and resources we to use in the Machine Learning
-### Libraries:
+### Dependencies:
+- python version:3.8 - 3.11
 - openAI -> openAI libraries for integration with openAI API
 - Numpy -> Open-source library for data preparing and manipulating
 - Pandas ->A  library for data structures and operations for manipulating numerical tables
