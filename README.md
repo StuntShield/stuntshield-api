@@ -12,6 +12,8 @@ installing dependencies:
 
 
 ## Tools/IDE/Library and resources we to use in the Machine Learning
+### Libraries:
+- openAI -> openAI libraries for integration with openAI API
 - Numpy -> Open-source library for data preparing and manipulating
 - Pandas ->A  library for data structures and operations for manipulating numerical tables
 - Zipfile -> A library for working with ZIP archives, allowing for compression and decompression of files.
@@ -21,6 +23,9 @@ installing dependencies:
 - Tensorflow -> An open-source framework for machine learning and deep learning, used for building and training models.
 - Flask -> A lightweight web framework for building web applications and API in Python, in this project used for building  backend model API.
 - API Keras from Tensorflow -> An API running on top of TensorFlow, designed for easy and fast prototyping of deep learning models.
-- VSCode ->  As the main IDE for the Backend Development.
-- Github -> A platform for store, share, and collaborate on code projects.
-- Google Collab -> A hosted service that lets you run Jupyter Notebooks with no setup and access to GPUs and TPUs.
+
+### Tools:
+- Neovim/VSCode -> text editor IDE.
+- Git -> A version control system software.
+- Github -> A git platform to store, share, and collaborate code projects.
+- notebook -> A library to run jupyter notebook files
