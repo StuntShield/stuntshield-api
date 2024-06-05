@@ -10,7 +10,7 @@ installing dependencies:
 `pip install -r requirements.txt`
 
 
-## Tools/IDE/Library and resources we to use in the Machine Learning
+## Dependencies to run this program & tools we're using:
 ### Dependencies:
 - python version:3.8 - 3.11
 - openAI -> openAI libraries for integration with openAI API
@@ -25,7 +25,7 @@ installing dependencies:
 - API Keras from Tensorflow -> An API running on top of TensorFlow, designed for easy and fast prototyping of deep learning models.
 
 ### Tools:
-- Neovim/VSCode -> text editor IDE.
+- Neovim/VSCode -> an IDE text ediitor.
 - Git -> A version control system software.
 - Github -> A git platform to store, share, and collaborate code projects.
 - notebook -> A library to run jupyter notebook files
