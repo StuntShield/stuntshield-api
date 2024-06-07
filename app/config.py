@@ -2,8 +2,8 @@ main_config = {
     'BASE_URL': 'http://localhost',
     'PORT': '5000',
     'UPLOAD_FOLDER_STUNTING':'./assets/users_uploads/data_stunting',
-    'UPLOAD_FOLDER_IDEAL_024':'./assets/users_uploads/data_stunting/umur_0_24_bulan',
-    'UPLOAD_FOLDER_IDEAL_2460':'./assets/users_uploads/data_stunting/umur_24_60_bulan',
+    'UPLOAD_FOLDER_IDEAL_024':'./assets/users_uploads/data_ideal/umur_0_24_bulan',
+    'UPLOAD_FOLDER_IDEAL_2460':'./assets/users_uploads/data_ideal/umur_24_60_bulan',
     # 'GCS_CREDENTIALS': '',
     # 'GCP_CREDIT': ''
 }

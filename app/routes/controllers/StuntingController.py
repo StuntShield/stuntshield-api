@@ -22,7 +22,7 @@ class StuntingController:
     model_ideal_024 = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_IDEAL_024'],compile=False)
     model_ideal_2460 = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_IDEAL_2460'],compile=False)
     classes_stunting = ["Stunting Berat","Stunting","Normal","Tinggi"] 
-    classes_ideal = ["Severely Wasted","Wasted","Normal","Berisiko Overweight","Overweight","Obesitas"] 
+    classes_ideal = ["Gizi Buruk","Gizi Kurang","Gizi Baik (Normal)","Berisiko Gizi Lebih (Overweight)","Gizi Lebih (overweight)","Obesitas"] 
     def index():
         return jsonify({
         "status" : {
@@ -39,7 +39,7 @@ class StuntingController:
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerow(data)
-        blob = StuntingController.bucket.blob('Users_input/'+file_csv+str(random.randint(10000,99999)) )
+        blob = StuntingController.bucket.blob(path+'/'+file_csv+str(random.randint(10000,99999)) )
         blob.upload_from_filename(file_path)
         os.remove(file_path)
         
@@ -101,6 +101,7 @@ class StuntingController:
                 result_all = {
                     'stunting' : result_prediction_stunting,
                     'ideal' : result_prediction_ideal,
+                    # 'rekomendasi' :
                 }
                 return jsonify({
                     "status" : {
