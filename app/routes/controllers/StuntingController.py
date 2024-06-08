@@ -19,10 +19,13 @@ class StuntingController:
     bucket = storage.Bucket(client,bucket_name)
     
     model_stunting = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_STUNTING'],compile=False)
+    model_weight = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_WEIGHT'],compile=False)
     model_ideal_024 = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_IDEAL_024'],compile=False)
     model_ideal_2460 = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_IDEAL_2460'],compile=False)
     classes_stunting = ["Stunting Berat","Stunting","Normal","Tinggi"] 
+    classes_weight=["Berat Badan Sangat Kurang","Berat Badan Kurang","Berat Badan Normal","Risiko Berat Badan Lebih"]
     classes_ideal = ["Gizi Buruk","Gizi Kurang","Gizi Baik (Normal)","Berisiko Gizi Lebih (Overweight)","Gizi Lebih (overweight)","Obesitas"] 
+    
     def index():
         return jsonify({
         "status" : {
@@ -57,8 +60,14 @@ class StuntingController:
                 jenis_kelamin_num = jenis_kelamin_map[jenis_kelamin]
                 fieldstunting =["Umur (bulan)", "Jenis Kelamin", "Tinggi Badan (cm)","Status Gizi"]
                 fieldideal=["Jenis Kelamin", "Tinggi Badan (cm)", "Berat Badan (kg)", "Status"]
+                fieldweight=["Umur (bulan)", "Jenis Kelamin", "Berat Badan (kg)","Status"]
+                
+                
                 input_data_stunting_predict = pd.DataFrame({'Umur': [umur], 'Jenis Kelamin': [jenis_kelamin_num], 'Tinggi Badan': [tinggi_badan]})
                 prediction_stunting_result = StuntingController.model_stunting.predict(input_data_stunting_predict)
+                
+                input_data_weight_predict = pd.DataFrame({'Umur': [umur], 'Jenis Kelamin': [jenis_kelamin_num], 'Berat Badan': [berat_badan]})
+                prediction_weight_result = StuntingController.model_weight.predict(input_data_weight_predict)
                 
                 data_stunting = {
                     "Umur (bulan)" : umur,
@@ -67,6 +76,14 @@ class StuntingController:
                     "Status Gizi" : StuntingController.classes_stunting[np.argmax(prediction_stunting_result)]
                 }
                 StuntingController.upload_data(fieldstunting,data_stunting,'inputan_stunting.csv',config['UPLOAD_FOLDER_STUNTING'])
+                
+                data_weight = {
+                    "Umur (bulan)" : umur,
+                    "Jenis Kelamin" : jenis_kelamin,
+                    "Berat Badan (cm)" : berat_badan,
+                    "Status" : StuntingController.classes_weight[np.argmax(prediction_weight_result)]
+                }
+                StuntingController.upload_data(fieldweight,data_weight,'inputan_weight.csv',config['UPLOAD_FOLDER_WEIGHT'])
                 
                 if umur <= 24 :
                     input_data_ideal_024_predict = pd.DataFrame({'Jenis Kelamin': [jenis_kelamin_num], 'Tinggi Badan': [tinggi_badan], 'Berat Badan' : [berat_badan]})
@@ -93,6 +110,10 @@ class StuntingController:
                     'class' : StuntingController.classes_stunting[np.argmax(prediction_stunting_result)],
                     'presentase' : str("{:.1f}".format(np.max(prediction_stunting_result)*100))
                 }
+                result_prediction_weight ={
+                    'class' : StuntingController.classes_ideal[np.argmax(prediction_weight_result)],
+                    'presentase' : str("{:.1f}".format(np.max(prediction_weight_result)*100))
+                }
                 result_prediction_ideal ={
                     'class' : StuntingController.classes_ideal[np.argmax(prediction_ideal_result)],
                     'presentase' : str("{:.1f}".format(np.max(prediction_ideal_result)*100))
@@ -100,6 +121,7 @@ class StuntingController:
                 
                 result_all = {
                     'stunting' : result_prediction_stunting,
+                    'weight' : result_prediction_weight,
                     'ideal' : result_prediction_ideal,
                     # 'rekomendasi' :
                 }
