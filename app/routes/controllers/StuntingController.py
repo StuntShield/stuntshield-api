@@ -14,9 +14,9 @@ from ...config import main_config as config
 load_dotenv()
 
 class StuntingController:
-    bucket_name = os.environ.get('BUCKET_NAME','data-balita')
-    client = storage.Client.from_service_account_json(json_credentials_path=config['GCS_CREDENTIALS'])
-    bucket = storage.Bucket(client,bucket_name)
+    # bucket_name = os.environ.get('BUCKET_NAME','data-balita')
+    # client = storage.Client.from_service_account_json(json_credentials_path=config['GCS_CREDENTIALS'])
+    # bucket = storage.Bucket(client,bucket_name)
     
     model_stunting = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_STUNTING'],compile=False)
     model_weight = tf.keras.models.load_model(mconfig['MODEL_CLASSIFICATION_WEIGHT'],compile=False)
@@ -35,16 +35,16 @@ class StuntingController:
         "data" : None
     }),HTTPStatus.OK
         
-    def upload_data(fieldnames,data,csv_file,path):
-        file_csv = csv_file 
-        file_path = os.path.join(path,file_csv)
-        with open(file_path, mode='w', newline='') as file:
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerow(data)
-        blob = StuntingController.bucket.blob(path+'/'+file_csv+str(random.randint(10000,99999)) )
-        blob.upload_from_filename(file_path)
-        os.remove(file_path)
+    # def upload_data(fieldnames,data,csv_file,path):
+    #     file_csv = csv_file 
+    #     file_path = os.path.join(path,file_csv)
+    #     with open(file_path, mode='w', newline='') as file:
+    #         writer = csv.DictWriter(file, fieldnames=fieldnames)
+    #         writer.writeheader()
+    #         writer.writerow(data)
+    #     blob = StuntingController.bucket.blob(path+'/'+file_csv+str(random.randint(10000,99999)) )
+    #     blob.upload_from_filename(file_path)
+    #     os.remove(file_path)
         
     def predict_stunting():
         if request.method == "POST":
@@ -75,7 +75,7 @@ class StuntingController:
                     "Tinggi Badan (cm)" : tinggi_badan,
                     "Status Gizi" : StuntingController.classes_stunting[np.argmax(prediction_stunting_result)]
                 }
-                StuntingController.upload_data(fieldstunting,data_stunting,'inputan_stunting.csv',config['UPLOAD_FOLDER_STUNTING'])
+                # StuntingController.upload_data(fieldstunting,data_stunting,'inputan_stunting.csv',config['UPLOAD_FOLDER_STUNTING'])
                 
                 data_weight = {
                     "Umur (bulan)" : umur,
@@ -83,7 +83,7 @@ class StuntingController:
                     "Berat Badan (cm)" : berat_badan,
                     "Status" : StuntingController.classes_weight[np.argmax(prediction_weight_result)]
                 }
-                StuntingController.upload_data(fieldweight,data_weight,'inputan_weight.csv',config['UPLOAD_FOLDER_WEIGHT'])
+                # StuntingController.upload_data(fieldweight,data_weight,'inputan_weight.csv',config['UPLOAD_FOLDER_WEIGHT'])
                 
                 if umur <= 24 :
                     input_data_ideal_024_predict = pd.DataFrame({'Jenis Kelamin': [jenis_kelamin_num], 'Tinggi Badan': [tinggi_badan], 'Berat Badan' : [berat_badan]})
@@ -94,7 +94,7 @@ class StuntingController:
                         "Berat Badan (kg)" : berat_badan,
                         "Status" : StuntingController.classes_ideal[np.argmax(prediction_ideal_result)], 
                     }
-                    StuntingController.upload_data(fieldideal,data_ideal,'inputan_ideal_024.csv',config['UPLOAD_FOLDER_IDEAL_024'])
+                    # StuntingController.upload_data(fieldideal,data_ideal,'inputan_ideal_024.csv',config['UPLOAD_FOLDER_IDEAL_024'])
                 else :
                     input_data_ideal_2460_predict = pd.DataFrame({'Jenis Kelamin': [jenis_kelamin_num], 'Tinggi Badan': [tinggi_badan], 'Berat Badan' : [berat_badan]})
                     prediction_ideal_result = StuntingController.model_ideal_2460.predict(input_data_ideal_2460_predict)
@@ -104,7 +104,7 @@ class StuntingController:
                         "Berat Badan (kg)" : berat_badan,
                         "Status" : StuntingController.classes_ideal[np.argmax(prediction_ideal_result)], 
                     }
-                    StuntingController.upload_data(fieldideal,data_ideal,'inputan_ideal_2460.csv',config['UPLOAD_FOLDER_IDEAL_2460'])
+                    # StuntingController.upload_data(fieldideal,data_ideal,'inputan_ideal_2460.csv',config['UPLOAD_FOLDER_IDEAL_2460'])
                 
                 result_prediction_stunting = {
                     'class' : StuntingController.classes_stunting[np.argmax(prediction_stunting_result)],
