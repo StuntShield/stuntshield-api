@@ -1,7 +1,7 @@
 from flask import jsonify
 import json
 from openai import OpenAI, AssistantEventHandler
-from ...config import API_KEY
+from ...config import main_config
 
 
 def getPrompt():
@@ -17,7 +17,7 @@ def getPrompt():
 
 
 def getPromptLocally(tinggi_badan, usia, status, berat_badan, jenis_kelamin):
-    client = OpenAI()
+    client = OpenAI(api_key=main_config['OPENAI_KEY'])
     # Create a new thread
     thread = client.beta.threads.create()
     input_message = 'tinggi badan: {}, usia: {} tahun, status_gizi:{}, berat badan:{}, jenis kelamin:{}'.format(
