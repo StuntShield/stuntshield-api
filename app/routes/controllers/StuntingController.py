@@ -215,7 +215,7 @@ class StuntingController:
                     ),
                 }
                 result_prediction_weight = {
-                    'class': StuntingController.classes_ideal[
+                    'class': StuntingController.classes_weight[
                         np.argmax(prediction_weight_result)
                     ],
                     'presentase': str(
@@ -231,9 +231,10 @@ class StuntingController:
                     ),
                 }
 
-                result_str = '{},{}'.format(
-                    result_prediction_stunting,
-                    result_prediction_weight,
+                result_str = 'prediksi tinggi badan bersarkan usianya :{},prediksi berat badan berdasarkan usianya {},prediksi ideal berat badan berdasarkan tingginya : {}'.format(
+                    StuntingController.classes_stunting[np.argmax(prediction_stunting_result)],
+                    StuntingController.classes_weight[np.argmax(prediction_weight_result)],
+                    StuntingController.classes_ideal[np.argmax(prediction_ideal_result)]
                 )
                 result_all = {
                     'stunting': result_prediction_stunting,
@@ -241,7 +242,7 @@ class StuntingController:
                     'ideal': result_prediction_ideal,
                     'recommendation': getPromptLocally(
                         tinggi_badan,
-                        (year * 12) + month,
+                        umur,
                         result_str,
                         berat_badan,
                         jenis_kelamin,

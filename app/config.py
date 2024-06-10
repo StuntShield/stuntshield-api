@@ -5,7 +5,7 @@ main_config = {
     'UPLOAD_FOLDER_WEIGHT': 'app/assets/users_uploads/data_weight',
     'UPLOAD_FOLDER_IDEAL_024': 'app/assets/users_uploads/data_ideal/umur_0_24_bulan',
     'UPLOAD_FOLDER_IDEAL_2460': 'app/assets/users_uploads/data_ideal/umur_24_60_bulan',
-    # 'OPENAI_KEY': '',
+    # 'OPENAI_KEY': ,
     # 'GCS_CREDENTIALS': '',
     # 'GCP_CREDIT': ''
 }
