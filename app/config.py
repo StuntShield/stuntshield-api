@@ -1,4 +1,5 @@
 main_config = {
+    'DEBUG': True,
     'BASE_URL': 'http://localhost',
     'PORT': '5000',
     'UPLOAD_FOLDER_STUNTING': 'app/assets/users_uploads/data_stunting',
