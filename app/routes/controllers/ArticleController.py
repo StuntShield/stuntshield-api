@@ -24,12 +24,15 @@ def getArticles():
         # 'searchType': 'link'
     }
 
-    response = requests.get(url, params=params)
-    results = response.json()['items']
-
+    filtered_results = []
+    while len(filtered_results) <= perPage:
+        req = requests.get(url, params=params)
+        resp = req.json()['items']
+        for row in resp:
+            if 'cse_thumbnail' in row['pagemap']:
+                filtered_results.append(row)
     mapped_result = []
-
-    for row in results:
+    for row in filtered_results[:perPage]:
         mapped_result.append(
             {
                 'title': row['title'],
@@ -43,5 +46,4 @@ def getArticles():
             }
         )
     mapped_result = sorted(mapped_result, key=lambda x: x['thumbnail'] is None)
-
-    return jsonify({'results': mapped_result}), 200
+    return jsonify({'results': mapped_result, 'message': 'OK'}), 200
