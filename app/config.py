@@ -9,7 +9,7 @@ main_config = {
     'SEARCH_ENGINE_URL': 'https://www.googleapis.com/customsearch/v1',
     'SEARCH_ENGINE_ID': 'c37f4842282914b17',
     # 'SEARCH_ENGINE_KEY': '',
-    # 'OPENAI_KEY': ,
+    # 'OPENAI_KEY': '' ,
     # 'GCS_CREDENTIALS': '',
     # 'GCP_CREDIT': ''
 }
