@@ -19,7 +19,6 @@ installing dependencies:
 - Zipfile -> A library for working with ZIP archives, allowing for compression and decompression of files.
 - Matplotlib -> A plotting library for creating static, animated, and interactive visualizations in Python
 - Sklearn -> A machine learning library offering tools for classification, regression, clustering, and more. However, in this project, it's utilized solely for convolutional metrics.
-- Seaborn -> A statistical data visualization library based on Matplotlib, designed for creating informative and attractive graphics.
 - Tensorflow -> An open-source framework for machine learning and deep learning, used for building and training models.
 - Flask -> A lightweight web framework for building web applications and API in Python, in this project used for building  backend model API.
 - API Keras from Tensorflow -> An API running on top of TensorFlow, designed for easy and fast prototyping of deep learning models.
